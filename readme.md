@@ -90,7 +90,7 @@ The project utilizes a CSV file named `msar-public-holidays-zh.csv` for holiday 
 
 *📅 The main calendar displaying holidays and custom blocks.*
 
-![image](https://cdn.discordapp.com/attachments/1297886322807148655/1298891849230192720/s2.png)
+![image](https://cdn.discordapp.com/attachments/1297886322807148655/1298891849230192720/s2.png?ex=671b36cd&is=6719e54d&hm=305604a82fb47b7f5e56d51e72c3c5e94bd1a2327492a377be824c29df979e4f&)
 
  
 *📝 Adding notes to a specific date.*
