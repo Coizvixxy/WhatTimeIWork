@@ -129,7 +129,7 @@ For issues, suggestions, or contributions, please contact the project maintainer
 <!-- TOC --><a name="-contact"></a>
 ## 📬 Contact
 
-- **👤 Project Maintainer:** Your Name
+- **👤 Project Maintainer:** Kenny
 - **✉️ Email:** [iamkenny@protonmail.ch](mailto:iamkenny@protonmail.ch)
 - **🐱 GitHub:** [Coizvixxy](https://github.com/coizvixxy)
 
