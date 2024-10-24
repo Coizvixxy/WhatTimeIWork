@@ -85,7 +85,7 @@ The project utilizes a CSV file named `msar-public-holidays-zh.csv` for holiday 
 <!-- TOC --><a name="-screenshots"></a>
 ## 📸 Screenshots
 
-![image]([https://hackmd.io/_uploads/HyVTNwDlkx.png](https://cdn.discordapp.com/attachments/1297886322807148655/1298891848751910952/s1.png))
+![image](https://cdn.discordapp.com/attachments/1297886322807148655/1298891848751910952/s1.png?ex=671b36cc&is=6719e54c&hm=21d3f10e5eed2e6b890d44405e4cf0cabd740241b3d120e974eaa50cee4f872a&)
 
 
 *📅 The main calendar displaying holidays and custom blocks.*
