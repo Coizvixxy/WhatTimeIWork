@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holiday Calendar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .month {
+            margin: 20px 0;
+        }
+        .month h3 {
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 1px;
+            table-layout: fixed;
+        }
+        th, td {
+            height: 100px;
+            border: 1px solid #ddd;
+            padding: 0;
+            text-align: center;
+            vertical-align: top;
+            width: 14.28%;
+            background-color: #fff;
+        }
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+            height: auto;
+            padding: 10px 0;
+        }
+        .month-header {
+            background-color: #e0e0e0;
+            font-size: 1.2em;
+            padding: 15px 0;
+        }
+        .date {
+            font-size: 0.8em;
+            color: #666;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+        }
+        textarea.holiday::placeholder {
+            color: #d9534f;
+            font-weight: bold;
+        }
+        textarea {
+            width: 100%;
+            height: 80px;
+            resize: none;
+            padding: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: Arial, sans-serif;
+        }
+        textarea span {
+            display: inline-block;
+            background-color: #90EE90;
+            padding: 2px 5px;
+            margin: 2px;
+        }
+        #blockCreator {
+            margin-bottom: 20px;
+        }
+        .block {
+            background-color: #90EE90;
+            padding: 2px 5px;
+            margin: 2px;
+            border-radius: 3px;
+            display: inline-block;
+            cursor: move;
+        }
+        .block-creator-row td {
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+        .block-creator {
+            margin-bottom: 10px;
+        }
+        .template-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        .template-button {
+            padding: 3px 6px;
+            font-size: 0.8em;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .block-creator input {
+            width: 70%;
+            padding: 5px;
+        }
+        .block-creator button {
+            padding: 5px 10px;
+            margin-left: 10px;
+        }
+        .block-container {
+            margin-bottom: 10px;
+            min-height: 30px;
+            border: 1px solid #ddd;
+            padding: 5px;
+            background-color: #f9f9f9;
+        }
+        .editable-div {
+            width: 100%;
+            height: calc(100% - 20px); /* 減去日期顯示的高度 */
+            border: none;
+            padding: 5px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+            font-size: 12px;
+            background-color: transparent;
+        }
+        
+        .editable-div[contenteditable]:empty:before {
+            content: attr(placeholder);
+            color: #888;
+            font-style: italic;
+        }
+
+        
+
+    
+        .note {
+            background-color: #fff9c4;
+            padding: 2px 5px;
+            margin: 2px;
+            border-radius: 3px;
+            display: inline-block;
+            cursor: move;
+        }
+
+        .editable-div.holiday {
+            color: red;
+            text-align: left;
+            overflow-wrap: break-word;
+        }
+
+        .editable-div.holiday:empty::before {
+            content: attr(placeholder);
+            color: red;
+            opacity: 0.7; /* 可以調整透明度，使其看起來像 placeholder */
+        }
+
+        .editable-div.holiday[contenteditable]:empty:before {
+            color: red;
+            opacity: 0.7;
+        }
+
+        .date-display {
+            font-size: 0.9em;
+            color: #333; /* 确保这个颜色在你的背景上是可见的 */
+            text-align: left;
+            padding: 2px 5px;
+            background-color: #f0f0f0; /* 确保这个背景色不会与页面背景混淆 */
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cell-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .editable-div {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 5px;
+            font-size: 12px;
+            background-color: transparent;
+        }
+
+        .calendar-cell {
+            border: 1px solid #ccc;
+            min-height: 100px;
+            position: relative;
+        }
+
+        .cell-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .date-display {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            font-size: 14px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 2px 5px;
+            border-radius: 3px;
+            z-index: 1;
+        }
+
+        .editable-div {
+            flex-grow: 1;
+            margin-top: 25px; /* 為日期顯示留出空間 */
+            overflow-y: auto;
+            padding: 5px;
+            font-size: 12px;
+            background-color: transparent;
+        }
+
+        .block.orange { background-color: #FFA500; }
+        .block.yellow { background-color: #FFFF00; }
+        .block.blue { background-color: #87CEEB; }
+        .block.pink { background-color: #FFC0CB; }
+        .block.purple { background-color: #E6E6FA; }
+        .block.lightgreen { background-color: #90EE90; }
+
+        .template-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .template-button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Holiday Calendar</h2>
+<p>提示：右鍵點擊可刪除已添加的塊</p>
+<div id="blockCreator">
+    <input type="text" id="blockText" placeholder="輸入塊內容，例如：13:00-18:00 會議">
+    <button onclick="createBlock()">創建塊</button>
+</div>
+<div class="template-container">
+    <button class="template-button orange" onclick="createTemplateBlock('9:00-14:00 可上班', 'orange')">9:00-14:00</button>
+    <button class="template-button orange" onclick="createTemplateBlock('9:30-14:30 可上班', 'orange')">9:30-14:30</button>
+    <button class="template-button yellow" onclick="createTemplateBlock('13:00-18:00 可上班', 'yellow')">13:00-18:00</button>
+    <button class="template-button blue" onclick="createTemplateBlock('17:00-22:00 可上班', 'blue')">17:00-22:00</button>
+    <button class="template-button blue" onclick="createTemplateBlock('17:30-22:00 可上班', 'blue')">17:30-22:00</button>
+    <button class="template-button pink" onclick="createTemplateBlock('11:00-16:00 可上班', 'pink')">11:00-16:00</button>
+    <button class="template-button purple" onclick="createTemplateBlock('15:00-20:00 可上班', 'purple')">15:00-20:00</button>
+    <button class="template-button lightgreen" onclick="createTemplateBlock('請假', 'lightgreen')">請</button>
+</div>
+<div id="blockContainer"></div>
+<button onclick="clearAllData()" style="margin-top: 10px; padding: 5px 10px; background-color: #ff4d4d; color: white; border: none; cursor: pointer;">清除所有數據</button>
+<div id="calendar"></div>
+
+<script>
+    async function fetchCSVData() {
+        const response = await fetch('msar-public-holidays-zh.csv');
+        const data = await response.text();
+        return data;
+    }
+
+    function parseCSV(data) {
+        const lines = data.trim().split('\n');
+        const headers = lines[0].split(',');
+        return lines.slice(1).map(line => {
+            const values = line.split(',');
+            let obj = {};
+            headers.forEach((header, index) => {
+                obj[header] = values[index].replace(/"/g, ''); // 移除引號
+            });
+            return obj;
+        });
+    }
+
+    function initializeEventListeners() {
+        console.log('Initializing event listeners');
+        const buttons = document.querySelectorAll('.block-creator button');
+        buttons.forEach(button => {
+            console.log('Found button:', button);
+            button.addEventListener('click', () => createBlockForMonth(button));
+        });
+
+        // 為所有預設塊添加拖動和右鍵刪除功能
+        document.querySelectorAll('.block-container .block').forEach(block => {
+            block.addEventListener('dragstart', drag);
+            block.addEventListener('dblclick', editBlock);
+            block.addEventListener('contextmenu', removeNote);
+        });
+
+        // 為所有 editable-div 添加拖放事件監聽器
+        document.querySelectorAll('.editable-div').forEach(div => {
+            div.addEventListener('dragover', allowDrop);
+            div.addEventListener('drop', drop);
+        });
+
+        // 為所有可編輯的 div 添加 input 事件監聽器
+        document.querySelectorAll('.editable-div').forEach(div => {
+            div.addEventListener('input', saveCalendarData);
+        });
+    }
+
+    async function generateCalendar() {
+        const csvData = await fetchCSVData();
+        const holidays = parseCSV(csvData);
+        console.log('Parsed holidays:', holidays);
+
+        const calendarDiv = document.getElementById('calendar');
+        const startDate = new Date("2024-01-01T00:00:00Z");
+        const endDate = new Date("2025-12-31T23:59:59Z");
+
+        let currentDate = new Date(startDate);
+
+        while (currentDate <= endDate) {
+            const monthStart = new Date(Date.UTC(currentDate.getUTCFullYear(), currentDate.getUTCMonth(), 1));
+            const monthEnd = new Date(Date.UTC(currentDate.getUTCFullYear(), currentDate.getUTCMonth() + 1, 0));
+
+            let monthLabel = monthStart.toLocaleDateString('zh-Hans-CN', { year: 'numeric', month: 'long', timeZone: 'UTC' });
+
+            const monthDiv = document.createElement('div');
+            monthDiv.className = 'month';
+
+            // 添加清除按鈕
+            const clearButton = document.createElement('button');
+            clearButton.textContent = '清除本月數據';
+            clearButton.style = "margin-top: 10px; padding: 5px 10px; background-color: #ff4d4d; color: white; border: none; cursor: pointer;";
+            clearButton.addEventListener('click', function() {
+                clearMonthData(monthDiv);
+            });
+            monthDiv.appendChild(clearButton);
+
+            // 添加 block-container
+            const blockContainer = document.createElement('div');
+            blockContainer.className = 'block-container';
+            monthDiv.appendChild(blockContainer);
+
+            const table = document.createElement('table');
+            monthDiv.appendChild(table);
+
+            const thead = document.createElement('thead');
+            table.appendChild(thead);
+
+            // 首先添加創建塊功能行
+            const blockCreatorRow = document.createElement('tr');
+            blockCreatorRow.className = 'block-creator-row';
+            const blockCreatorCell = document.createElement('td');
+            blockCreatorCell.colSpan = 7;
+            blockCreatorCell.innerHTML = `
+                <div class="block-creator">
+                    <input type="text" class="block-text" placeholder="輸入塊內容，例如：13:00-18:00 會議">
+                    <button class="create-block-btn">創建塊</button>
+                </div>
+                <div class="block-container">
+                    <div class="block lightgreen" draggable="true">請假</div>
+                    <div class="block orange" draggable="true">9:00-14:00 可上班</div>
+                    <div class="block orange" draggable="true">9:30-14:30 可上班</div>
+                    <div class="block yellow" draggable="true">13:00-18:00 可上班</div>
+                    <div class="block blue" draggable="true">17:00-22:00 可上班</div>
+                    <div class="block blue" draggable="true">17:30-22:00 可上班</div>
+                    <div class="block pink" draggable="true">11:00-16:00 可上班</div>
+                    <div class="block purple" draggable="true">15:00-20:00 可上班</div>
+                </div>
+                
+            `;
+            blockCreatorRow.appendChild(blockCreatorCell);
+            thead.appendChild(blockCreatorRow);
+
+            // 然後添加月份行
+            const monthRow = document.createElement('tr');
+            const monthCell = document.createElement('th');
+            monthCell.colSpan = 7;
+            monthCell.textContent = monthLabel;
+            monthCell.className = 'month-header';
+            monthCell.contentEditable = true; // 使月標題可編輯
+            monthCell.addEventListener('blur', function() {
+                if (!this.textContent.trim()) {
+                    this.textContent = monthLabel; // 如果編輯後為空，恢復原始文字
+                }
+                saveCalendarData(); // 保存更改
+            });
+            
+            monthRow.appendChild(monthCell);
+            thead.appendChild(monthRow);
+
+            // 最後添加星期幾的行
+            const headerRow = document.createElement('tr');
+            const days = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+            days.forEach(day => {
+                const th = document.createElement('th');
+                th.textContent = day;
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+
+            const tbody = document.createElement('tbody');
+            table.appendChild(tbody);
+
+            let weekRow = document.createElement('tr');
+            
+            // 添加月初的空白單元格
+            for (let i = 0; i < monthStart.getUTCDay(); i++) {
+                weekRow.appendChild(document.createElement('td'));
+            }
+
+            for (let day = 1; day <= monthEnd.getUTCDate(); day++) {
+                if (weekRow.children.length === 7) {
+                    tbody.appendChild(weekRow);
+                    weekRow = document.createElement('tr');
+                }
+
+                const cell = document.createElement('td');
+                cell.className = 'calendar-cell';
+                const currentDay = new Date(Date.UTC(monthStart.getUTCFullYear(), monthStart.getUTCMonth(), day));
+                const dateStr = currentDay.toISOString().split('T')[0];
+                
+                const cellContent = document.createElement('div');
+                cellContent.className = 'cell-content';
+                cell.appendChild(cellContent);
+
+                // 添加日期顯示
+                const dateDisplay = document.createElement('div');
+                dateDisplay.className = 'date-display';
+                dateDisplay.textContent = `${currentDay.getUTCMonth() + 1}月${currentDay.getUTCDate()}日`;
+                cellContent.appendChild(dateDisplay);
+                
+                // 修改這裡：直接使用日期字符串進行比較
+                const holiday = holidays.find(h => h.dtstart.startsWith(dateStr));
+
+                const editableDiv = document.createElement('div');
+                editableDiv.className = 'editable-div';
+                editableDiv.contentEditable = true;
+                if (holiday) {
+                    editableDiv.setAttribute('placeholder', holiday.summary);
+                    editableDiv.className += ' holiday';
+                } else {
+                    editableDiv.setAttribute('placeholder', '添加筆記...');
+                }
+                editableDiv.addEventListener('dragover', allowDrop);
+                editableDiv.addEventListener('drop', drop);
+                cellContent.appendChild(editableDiv);
+
+                weekRow.appendChild(cell);
+            }
+
+            // 添加月末的空白單元格
+            while (weekRow.children.length < 7) {
+                weekRow.appendChild(document.createElement('td'));
+            }
+            tbody.appendChild(weekRow);
+
+            calendarDiv.appendChild(monthDiv);
+
+            currentDate = new Date(Date.UTC(currentDate.getUTCFullYear(), currentDate.getUTCMonth() + 1, 1));
+
+            // 為當前月份的創建塊按鈕添加事件監聽器
+            const createBlockBtn = monthDiv.querySelector('.create-block-btn');
+            createBlockBtn.addEventListener('click', function() {
+                console.log('Create block button clicked');
+                createBlockForMonth(this);
+            });
+        }
+
+        loadCalendarData(); // 在生成日曆後加載保存的數據
+
+        // 在生成日曆後調用初始化事件監聽器的函數
+        initializeEventListeners();
+    }
+
+    function createBlock() {
+        const blockText = document.getElementById('blockText').value;
+        if (blockText) {
+            const block = document.createElement('div');
+            block.className = 'block';
+            block.textContent = blockText;
+            block.draggable = true;
+            block.addEventListener('dragstart', drag);
+            document.getElementById('blockContainer').appendChild(block);
+            document.getElementById('blockText').value = '';
+        }
+    }
+
+    function createTemplateBlock(text, color) {
+        const block = document.createElement('div');
+        block.className = `block ${color}`;
+        block.textContent = text;
+        block.draggable = true;
+        block.addEventListener('dragstart', drag);
+        document.getElementById('blockContainer').appendChild(block);
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.outerHTML);
+    }
+
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        const data = ev.dataTransfer.getData("text");
+        
+        // 保存操作前的狀態
+        saveState();
+
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = data;
+        const newElement = tempDiv.firstChild;
+        newElement.addEventListener('dragstart', drag);
+        newElement.addEventListener('contextmenu', removeNote);
+
+        // 找到目標 editable-div
+        let targetElement = ev.target;
+        let editableDiv = null;
+
+        // 處理不同的目標情況
+        if (targetElement.classList.contains('editable-div')) {
+            editableDiv = targetElement;
+        } else if (targetElement.classList.contains('block')) {
+            editableDiv = targetElement.closest('.editable-div');
+        } else {
+            editableDiv = targetElement.closest('.editable-div');
+        }
+
+        // 只有在找到有效的 editable-div 時才進行添加
+        if (editableDiv) {
+            editableDiv.appendChild(newElement);
+            editableDiv.appendChild(document.createTextNode(' '));
+            saveCalendarData();
+        }
+    }
+
+    function removeNote(event) {
+        event.preventDefault();
+        if (confirm('是否要刪除這個塊？')) {
+            event.target.remove();
+            saveCalendarData(); // 在刪除後保存數據
+        }
+    }
+
+    function createBlockForMonth(button) {
+        console.log('createBlockForMonth called');
+        const blockText = button.previousElementSibling.value;
+        console.log('Block text:', blockText);
+        if (blockText) {
+            const monthDiv = button.closest('.month');
+            console.log('Month div found:', monthDiv);
+            const blockContainer = monthDiv.querySelector('.block-container');
+            console.log('Block container found:', blockContainer);
+
+            if (blockContainer) {
+                console.log('Creating new block');
+                const block = document.createElement('div');
+                block.className = 'block';
+                block.textContent = blockText;
+                block.draggable = true;
+                block.addEventListener('dragstart', drag);
+                block.addEventListener('dblclick', editBlock);
+                blockContainer.appendChild(block);
+                
+                button.previousElementSibling.value = '';
+                console.log('Block added successfully');
+            } else {
+                console.log('Block container not found');
+                alert('無法找到塊容器，請檢查HTML結構。');
+            }
+        } else {
+            console.log('No block text entered');
+        }
+    }
+
+    function editBlock(event) {
+        const block = event.target;
+        const oldText = block.textContent;
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = oldText;
+        input.style.width = (block.offsetWidth - 10) + 'px';
+        block.textContent = '';
+        block.appendChild(input);
+        input.focus();
+
+        function saveEdit() {
+            block.textContent = input.value;
+            block.addEventListener('dragstart', drag);
+            block.addEventListener('dblclick', editBlock);
+        }
+
+        input.addEventListener('blur', saveEdit);
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                saveEdit();
+            }
+        });
+
+        block.removeEventListener('dragstart', drag);
+        block.removeEventListener('dblclick', editBlock);
+    }
+
+    function saveCalendarData() {
+        const calendar = document.getElementById('calendar');
+        const editableDivs = calendar.querySelectorAll('.editable-div');
+        const monthHeaders = calendar.querySelectorAll('.month-header');
+        const calendarData = {
+            cells: {},
+            headers: {}
+        };
+
+        editableDivs.forEach((div, index) => {
+            calendarData.cells[index] = {
+                content: div.innerHTML,
+                isHoliday: div.classList.contains('holiday')
+            };
+        });
+
+        monthHeaders.forEach((header, index) => {
+            calendarData.headers[index] = header.textContent;
+        });
+
+        localStorage.setItem('calendarData', JSON.stringify(calendarData));
+    }
+
+    function loadCalendarData() {
+        const savedData = localStorage.getItem('calendarData');
+        if (savedData) {
+            const calendarData = JSON.parse(savedData);
+            const editableDivs = document.querySelectorAll('.editable-div');
+            const monthHeaders = document.querySelectorAll('.month-header');
+
+            editableDivs.forEach((div, index) => {
+                if (calendarData.cells[index]) {
+                    div.innerHTML = calendarData.cells[index].content;
+                    if (calendarData.cells[index].isHoliday) {
+                        div.classList.add('holiday');
+                    }
+                }
+            });
+
+            monthHeaders.forEach((header, index) => {
+                if (calendarData.headers[index]) {
+                    header.textContent = calendarData.headers[index];
+                }
+            });
+        }
+    }
+
+    function clearAllData() {
+        if (confirm('確定要清除所有數據嗎？此操作不可撤銷。')) {
+            localStorage.removeItem('calendarData');
+            location.reload(); // 重新加載頁面以清除顯示的數據
+        }
+    }
+
+    // 添加用於調試的代碼
+    console.log('Script loaded');
+    document.addEventListener('DOMContentLoaded', (event) => {
+        console.log('DOM fully loaded and parsed');
+        generateCalendar(); // 在 DOM 加載完成後調用 generateCalendar
+    });
+
+    // 添加清除單個月份數據的函數
+    function clearMonthData(monthDiv) {
+        if (confirm('確定要清除本月數據嗎？此操作不可撤銷。')) {
+            // 清除所有可編輯div的內容
+            const editableDivs = monthDiv.querySelectorAll('.editable-div');
+            editableDivs.forEach(div => {
+                div.innerHTML = '';
+            });
+
+            // 清除月份標題的自定義內容
+            const monthHeader = monthDiv.querySelector('.month-header');
+            if (monthHeader) {
+                const defaultText = monthHeader.getAttribute('data-default-text');
+                if (defaultText) {
+                    monthHeader.textContent = defaultText;
+                }
+            }
+
+            // 保存更新後的數據
+            saveCalendarData();
+        }
+    }
+
+    // 添加歷史記錄相關變量
+    let undoStack = [];
+    const maxUndoSteps = 50; // 最大撤銷步驟數
+
+    // 添加保存狀態的函數
+    function saveState() {
+        const calendar = document.getElementById('calendar');
+        const state = {
+            editableDivs: Array.from(calendar.querySelectorAll('.editable-div')).map(div => ({
+                content: div.innerHTML,
+                isHoliday: div.classList.contains('holiday')
+            })),
+            monthHeaders: Array.from(calendar.querySelectorAll('.month-header')).map(header => header.textContent)
+        };
+        
+        undoStack.push(JSON.stringify(state));
+        if (undoStack.length > maxUndoSteps) {
+            undoStack.shift(); // 移除最舊的狀態
+        }
+        console.log('State saved, stack size:', undoStack.length);
+    }
+
+    // 修改現有的 saveCalendarData 函數
+    function saveCalendarData() {
+        saveState(); // 在保存到 localStorage 之前保存狀態
+
+        const calendar = document.getElementById('calendar');
+        const editableDivs = calendar.querySelectorAll('.editable-div');
+        const monthHeaders = calendar.querySelectorAll('.month-header');
+        const calendarData = {
+            cells: {},
+            headers: {}
+        };
+
+        editableDivs.forEach((div, index) => {
+            calendarData.cells[index] = {
+                content: div.innerHTML,
+                isHoliday: div.classList.contains('holiday')
+            };
+        });
+
+        monthHeaders.forEach((header, index) => {
+            calendarData.headers[index] = header.textContent;
+        });
+
+        localStorage.setItem('calendarData', JSON.stringify(calendarData));
+    }
+
+    // 添加撤銷功能
+    function undo() {
+        if (undoStack.length > 1) { // 保留最後一個狀態
+            undoStack.pop(); // 移除當前狀態
+            const previousState = JSON.parse(undoStack[undoStack.length - 1]);
+            
+            const calendar = document.getElementById('calendar');
+            const editableDivs = calendar.querySelectorAll('.editable-div');
+            const monthHeaders = calendar.querySelectorAll('.month-header');
+
+            // 恢復可編輯div的內容
+            editableDivs.forEach((div, index) => {
+                if (previousState.editableDivs[index]) {
+                    div.innerHTML = previousState.editableDivs[index].content;
+                    if (previousState.editableDivs[index].isHoliday) {
+                        div.classList.add('holiday');
+                    } else {
+                        div.classList.remove('holiday');
+                    }
+                } else {
+                    div.innerHTML = ''; // 清空沒有對應狀態的 div
+                }
+            });
+
+            // 恢復月份標題
+            monthHeaders.forEach((header, index) => {
+                if (previousState.monthHeaders[index]) {
+                    header.textContent = previousState.monthHeaders[index];
+                }
+            });
+
+            // 更新 localStorage
+            localStorage.setItem('calendarData', JSON.stringify({
+                cells: Object.fromEntries(previousState.editableDivs.map((div, index) => [index, div])),
+                headers: Object.fromEntries(previousState.monthHeaders.map((header, index) => [index, header]))
+            }));
+        }
+    }
+
+    // 添加鍵盤事件監聽器
+    document.addEventListener('keydown', function(e) {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'z') { // Command + Z 或 Ctrl + Z
+            e.preventDefault(); // 防止瀏覽器默認的撤銷行為
+            undo();
+        }
+    });
+
+    // 修改所有可能改變內容的函數，使其調用 saveCalendarData
+    function drop(ev) {
+        ev.preventDefault();
+        const data = ev.dataTransfer.getData("text");
+        
+        // 保存操作前的狀態
+        saveState();
+
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = data;
+        const newElement = tempDiv.firstChild;
+        newElement.addEventListener('dragstart', drag);
+        newElement.addEventListener('contextmenu', removeNote);
+
+        // 找到目標 editable-div
+        let targetElement = ev.target;
+        let editableDiv = null;
+
+        // 處理不同的目標情況
+        if (targetElement.classList.contains('editable-div')) {
+            editableDiv = targetElement;
+        } else if (targetElement.classList.contains('block')) {
+            editableDiv = targetElement.closest('.editable-div');
+        } else {
+            editableDiv = targetElement.closest('.editable-div');
+        }
+
+        // 只有在找到有效的 editable-div 時才進行添加
+        if (editableDiv) {
+            editableDiv.appendChild(newElement);
+            editableDiv.appendChild(document.createTextNode(' '));
+            saveCalendarData();
+        }
+    }
+
+    function removeNote(event) {
+        event.preventDefault();
+        if (confirm('是否要刪除這個塊？')) {
+            event.target.remove();
+            saveCalendarData();
+        }
+    }
+
+    // 在頁面加載時初始化撤銷堆疊
+    document.addEventListener('DOMContentLoaded', (event) => {
+        console.log('DOM fully loaded and parsed');
+        generateCalendar();
+        saveState(); // 保存初始狀態
+    });
+</script>
+
+</body>
+</html>
