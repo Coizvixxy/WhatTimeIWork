@@ -1,4 +1,4 @@
-# 🎉 Holiday Calendar Project
+# 📅 Holiday Calendar Project
 ## 📜 Table of Contents
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
@@ -50,7 +50,7 @@ The **Holiday Calendar** is a web-based project designed to manage and display h
 1. **Download the Project Files**
    - Clone the repository:
      ```bash
-     git clone https://github.com/your-username/holiday-calendar.git
+     https://github.com/Coizvixxy/WhatTimeIWork.git
      ```
    - Or download the ZIP archive and extract it.
 
