@@ -1,4 +1,4 @@
-*# 🎉 Holiday Calendar Project
+# 🎉 Holiday Calendar Project
 ## 📜 Table of Contents
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
@@ -85,11 +85,14 @@ The project utilizes a CSV file named `msar-public-holidays-zh.csv` for holiday 
 <!-- TOC --><a name="-screenshots"></a>
 ## 📸 Screenshots
 
-![Calendar View](https://hackmd.io/_uploads/SJulOHPlkx.png)
+![s1](https://hackmd.io/_uploads/HyVTNwDlkx.png)
+
 
 *📅 The main calendar displaying holidays and custom blocks.*
 
-![image](https://hackmd.io/_uploads/Hy1cdBwx1e.png)
+![s2](https://hackmd.io/_uploads/SypaNPPekx.png)
+
+ 
 *📝 Adding notes to a specific date.*
 
 
