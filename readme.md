@@ -1,22 +1,27 @@
-# 📅 Holiday Calendar Project
-![image](https://cdn.discordapp.com/attachments/1297886322807148655/1298903250195578952/1101729741073_.pic.png?ex=671b416b&is=6719efeb&hm=8a477fe40c61be57fccbcec42448530044661e77036985556229aca022af39b0&)
-## 📜 Table of Contents
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-- [📖 Overview](#-overview)
-- [✨ Features](#-features)
-- [🔧 Installation](#-installation)
-   * [🛠️ Prerequisites](#-prerequisites)
-   * [📥 Steps](#-steps)
-- [🚀 Usage](#-usage)
-- [💻 Technologies](#-technologies)
-- [📂 Data Source](#-data-source)
-- [📸 Screenshots](#-screenshots)
-- [🐞 Known Issues](#-known-issues)
-- [✅ Testing](#-testing)
-- [📞 Support](#-support)
-- [📬 Contact](#-contact)
-- [📄 License](#-license)
+- [📅 Holiday Calendar Project](#-holiday-calendar-project)
+   * [📖 Overview](#-overview)
+   * [✨ Features](#-features)
+   * [🔧 Installation](#-installation)
+      + [🛠️ Prerequisites](#-prerequisites)
+      + [📥 Steps](#-steps)
+   * [🚀 Usage](#-usage)
+   * [🔒 Data Privacy](#-data-privacy)
+   * [💻 Technologies](#-technologies)
+   * [📂 Data Source](#-data-source)
+   * [📸 Screenshots](#-screenshots)
+   * [🐞 Known Issues](#-known-issues)
+   * [✅ Testing](#-testing)
+   * [📞 Support](#-support)
+   * [📬 Contact](#-contact)
+   * [📄 License](#-license)
+
+<!-- TOC end -->
+
+<!-- TOC --><a name="-holiday-calendar-project"></a>
+# 📅 Holiday Calendar Project
+![image](https://cdn.discordapp.com/attachments/1297886322807148655/1298903250195578952/1101729741073_.pic.png?ex=671b416b&is=6719efeb&hm=8a477fe40c61be57fccbcec42448530044661e77036985556229aca022af39b0&)
 
 <!-- TOC end -->
 
@@ -35,6 +40,9 @@ The **Holiday Calendar** is a web-based project designed to manage and display h
 - **📝 Editable Notes**: Users can add and edit notes directly on the calendar days.
 - **💾 Data Persistence**: Holiday and note data are saved locally to allow for persistence across sessions.
 - **↩️ Undo Functionality**: Supports undo operations to revert changes in the calendar data.
+- **🎨 Color-Coded Blocks**: Pre-defined time blocks with different colors for better visual organization
+- **🔄 Monthly Data Reset**: Option to clear data for individual months
+- **🔒 Local Storage**: All data is stored locally in the browser
 
 <!-- TOC --><a name="-installation"></a>
 ## 🔧 Installation
@@ -70,6 +78,19 @@ The **Holiday Calendar** is a web-based project designed to manage and display h
 - **🔍 Viewing Holidays**: Holidays are automatically highlighted and can be viewed by mousing over the relevant days.
 - **🗑️ Removing Blocks or Notes**: Right-click on a block or editable area to remove content.
 - **↩️ Undo Changes**: Use `Ctrl + Z` or `Cmd + Z` to undo recent changes.
+- **🎨 Using Color Templates**: Click on the pre-defined colored time block templates for quick insertion
+- **🔄 Clearing Data**: 
+  - Use the "清除本月數據" button to clear data for a specific month
+  - Use the "清除所有數據" button to reset the entire calendar
+- **🖱️ Drag and Drop**: Drag blocks from the template area to any date on the calendar
+- **✂️ Quick Delete**: Right-click on any block to remove it
+
+<!-- TOC --><a name="-data-privacy"></a>
+## 🔒 Data Privacy
+
+- All calendar data is stored locally in your browser
+- No data is sent to any external servers
+- Clearing browser data/cache will remove all saved calendar information
 
 <!-- TOC --><a name="-technologies"></a>
 ## 💻 Technologies
