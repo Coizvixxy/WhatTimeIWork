@@ -106,12 +106,11 @@ The project utilizes a CSV file named `msar-public-holidays-zh.csv` for holiday 
 <!-- TOC --><a name="-screenshots"></a>
 ## 📸 Screenshots
 
-![image](https://github.com/Coizvixxy/WhatTimeIWork/blob/main/image1.png)
+![image](https://github.com/Coizvixxy/WhatTimeIWork/blob/main/image3.png)
 
 
 *📅 The main calendar displaying holidays and custom blocks.*
-
-![image](https://github.com/Coizvixxy/WhatTimeIWork/blob/main/image3.png)
+![image](https://github.com/Coizvixxy/WhatTimeIWork/blob/main/image1.png)
 
  
 *📝 Adding notes to a specific date.*
