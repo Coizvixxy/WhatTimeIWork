@@ -1,5 +1,5 @@
 # 📅 Holiday Calendar Project
-![image](https://cdn.discordapp.com/attachments/1297886322807148655/1298903250195578952/1101729741073_.pic.png?ex=671b416b&is=6719efeb&hm=8a477fe40c61be57fccbcec42448530044661e77036985556229aca022af39b0&)
+![image](https://github.com/Coizvixxy/WhatTimeIWork/blob/main/image2.png)
 
 ## 📌 Project Title
 Holiday Calendar - A web-based calendar system for managing work schedules and holidays.
@@ -106,12 +106,12 @@ The project utilizes a CSV file named `msar-public-holidays-zh.csv` for holiday 
 <!-- TOC --><a name="-screenshots"></a>
 ## 📸 Screenshots
 
-![image](https://cdn.discordapp.com/attachments/1297886322807148655/1298891848751910952/s1.png?ex=671b36cc&is=6719e54c&hm=21d3f10e5eed2e6b890d44405e4cf0cabd740241b3d120e974eaa50cee4f872a&)
+![image](https://github.com/Coizvixxy/WhatTimeIWork/blob/main/image1.png)
 
 
 *📅 The main calendar displaying holidays and custom blocks.*
 
-![image](https://cdn.discordapp.com/attachments/1297886322807148655/1298891849230192720/s2.png?ex=671b36cd&is=6719e54d&hm=305604a82fb47b7f5e56d51e72c3c5e94bd1a2327492a377be824c29df979e4f&)
+![image](https://github.com/Coizvixxy/WhatTimeIWork/blob/main/image3.png)
 
  
 *📝 Adding notes to a specific date.*
